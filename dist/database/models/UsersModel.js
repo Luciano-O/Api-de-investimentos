@@ -6,11 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const _1 = __importDefault(require("."));
 class Users extends sequelize_1.Model {
-    static associate(models) {
-        Users.belongsToMany(models.Stocks, {
-            through: 'buyedStocks'
-        });
-    }
 }
 Users.init({
     id: {

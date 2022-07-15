@@ -17,7 +17,7 @@ const UsersModel_1 = __importDefault(require("./database/models/UsersModel"));
 const getAll = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield UsersModel_1.default.findAll({
         include: [
-            { model: StocksModel_1.default, as: 'stocks' }
+            { model: StocksModel_1.default }
         ]
     });
     return result;

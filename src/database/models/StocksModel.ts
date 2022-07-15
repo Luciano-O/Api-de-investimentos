@@ -1,16 +1,13 @@
 import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
 import db from '.';
+import BuyedStocks from './BuyedStocks';
+import Users from './UsersModel';
 
 class Stocks extends Model {
   id!: number;
   name!: string;
   price!: number;
   quantity!: number;
-  static associate(models: any) {
-    Stocks.belongsToMany(models.Users, {
-      through: 'buyedStocks'
-    })
-  }
 }
 
 Stocks.init({
@@ -36,5 +33,13 @@ Stocks.init({
   sequelize: db,
   modelName: 'stocks',
   timestamps: false});
+
+Stocks.belongsToMany(Users, {
+  through: BuyedStocks
+})
+
+Users.belongsToMany(Stocks, {
+  through: BuyedStocks
+})
 
 export default Stocks;

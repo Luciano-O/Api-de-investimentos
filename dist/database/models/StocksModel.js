@@ -5,12 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const _1 = __importDefault(require("."));
+const BuyedStocks_1 = __importDefault(require("./BuyedStocks"));
+const UsersModel_1 = __importDefault(require("./UsersModel"));
 class Stocks extends sequelize_1.Model {
-    static associate(models) {
-        Stocks.belongsToMany(models.Users, {
-            through: 'buyedStocks'
-        });
-    }
 }
 Stocks.init({
     id: {
@@ -35,5 +32,11 @@ Stocks.init({
     sequelize: _1.default,
     modelName: 'stocks',
     timestamps: false
+});
+Stocks.belongsToMany(UsersModel_1.default, {
+    through: BuyedStocks_1.default
+});
+UsersModel_1.default.belongsToMany(Stocks, {
+    through: BuyedStocks_1.default
 });
 exports.default = Stocks;
