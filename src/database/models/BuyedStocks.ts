@@ -1,11 +1,13 @@
-import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
+import {
+  Model, INTEGER,
+} from 'sequelize';
 import db from '.';
-import Stocks from './StocksModel';
-import Users from './UsersModel';
 
 class BuyedStocks extends Model {
   userId!: number;
+
   stockId!: number;
+
   quantity!: number;
 }
 
@@ -17,7 +19,7 @@ BuyedStocks.init({
     references: {
       model: 'Users',
       key: 'id',
-    }
+    },
   },
   stockId: {
     type: INTEGER,
@@ -25,8 +27,8 @@ BuyedStocks.init({
     primaryKey: true,
     references: {
       model: 'Stocks',
-      key: 'id'
-    }
+      key: 'id',
+    },
   },
   quantity: {
     type: INTEGER,
@@ -35,6 +37,7 @@ BuyedStocks.init({
 }, {
   sequelize: db,
   modelName: 'buyedStocks',
-  timestamps: false});
+  timestamps: false,
+});
 
 export default BuyedStocks;

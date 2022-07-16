@@ -1,11 +1,16 @@
-import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
+import {
+  Model, INTEGER, STRING, DECIMAL,
+} from 'sequelize';
 import db from '.';
 import BuyedStocks from './BuyedStocks';
 
 class Users extends Model {
   id!: number;
+
   name!: string;
+
   balance!: number;
+
   password!: string;
 }
 
@@ -21,7 +26,7 @@ Users.init({
     allowNull: false,
   },
   balance: {
-    type: DECIMAL(10,2),
+    type: DECIMAL(10, 2),
     allowNull: false,
   },
   password: {
@@ -31,6 +36,7 @@ Users.init({
 }, {
   sequelize: db,
   modelName: 'users',
-  timestamps: false});
+  timestamps: false,
+});
 
 export default Users;

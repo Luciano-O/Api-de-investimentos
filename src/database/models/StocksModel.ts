@@ -1,12 +1,17 @@
-import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
+import {
+  Model, INTEGER, STRING, DECIMAL,
+} from 'sequelize';
 import db from '.';
 import BuyedStocks from './BuyedStocks';
 import Users from './UsersModel';
 
 class Stocks extends Model {
   id!: number;
+
   name!: string;
+
   price!: number;
+
   quantity!: number;
 }
 
@@ -22,7 +27,7 @@ Stocks.init({
     allowNull: false,
   },
   price: {
-    type: DECIMAL(10,2),
+    type: DECIMAL(10, 2),
     allowNull: false,
   },
   quantity: {
@@ -32,14 +37,15 @@ Stocks.init({
 }, {
   sequelize: db,
   modelName: 'stocks',
-  timestamps: false});
+  timestamps: false,
+});
 
 Stocks.belongsToMany(Users, {
-  through: BuyedStocks
-})
+  through: BuyedStocks,
+});
 
 Users.belongsToMany(Stocks, {
-  through: BuyedStocks
-})
+  through: BuyedStocks,
+});
 
 export default Stocks;
