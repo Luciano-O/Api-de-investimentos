@@ -1,4 +1,6 @@
-export interface IResponse {
+interface IResponse {
   status: number,
-  response: object,
+  response?: object,
 }
+
+export default IResponse;

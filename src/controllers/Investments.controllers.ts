@@ -10,4 +10,12 @@ const create = async (req: Request, res: Response) => {
   res.status(status).json(response);
 };
 
-export default { create };
+const update = async (req: Request, res: Response) => {
+  const newBuy: INewBuy = req.body;
+
+  const { status, response } = await InvestmentsServices.update(newBuy);
+
+  res.status(status).json(response);
+};
+
+export default { create, update };

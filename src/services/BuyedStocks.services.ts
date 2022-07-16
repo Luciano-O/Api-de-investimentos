@@ -14,12 +14,21 @@ const getByids = async (userId: number, stockId: number): Promise<IBuyedStock | 
   return buyedStock;
 };
 
+const remove = async (userId: number, stockId: number): Promise<void> => {
+  await BuyedStocks.destroy({ where: { userId, stockId } });
+};
+
 const updateQuantity = async (
   userId: number,
   stockId: number,
   qtd: number,
   t?: Transaction | null,
 ): Promise<void> => {
+  if (qtd === 0) {
+    await remove(userId, stockId);
+    return;
+  }
+
   await BuyedStocks.update({ quantity: qtd }, { where: { userId, stockId }, transaction: t });
 };
 
@@ -34,4 +43,4 @@ const create = async (insert: INewBuy, t?: Transaction): Promise<void> => {
     .create({ userId: codCliente, stockId: codAtivo, quantity: qtdeAtivo }, { transaction: t });
 };
 
-export default { create };
+export default { create, getByids, updateQuantity };
