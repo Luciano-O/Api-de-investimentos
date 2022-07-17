@@ -22,6 +22,15 @@ const getById = async (stockId: number): Promise<IStock> => {
   return result;
 };
 
+const requestById = async (stockId: number): Promise<IResponse> => {
+  const stock = await getById(stockId);
+
+  return {
+    status: StatusCodes.OK,
+    response: stock,
+  };
+};
+
 const create = async (newBuy: INewBuy): Promise<IResponse> => {
   const { codAtivo, qtdeAtivo } = newBuy;
   const {
@@ -93,4 +102,4 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
   }
 };
 
-export default { create, update };
+export default { create, update, requestById };

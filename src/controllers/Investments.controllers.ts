@@ -18,4 +18,12 @@ const update = async (req: Request, res: Response) => {
   return res.status(status).json(response);
 };
 
-export default { create, update };
+const requestById = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+
+  const { status, response } = await InvestmentsServices.requestById(parseInt(id, 10));
+
+  return res.status(status).json(response);
+};
+
+export default { create, update, requestById };

@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import Stocks from '../database/models/StocksModel';
 import Users from '../database/models/UsersModel';
 import IResponse from '../interfaces/Response.interface';
+import IUser from '../interfaces/User.interfaces';
 
 const getById = async (id: number): Promise<IResponse> => {
   const user = await Users.findByPk(id, {
@@ -22,8 +23,38 @@ const getById = async (id: number): Promise<IResponse> => {
 
   return {
     status: StatusCodes.OK,
-    response: user,
+    response: user as IUser,
   };
 };
 
-export default { getById };
+const deposit = async (userId: number, money: number): Promise<IResponse> => {
+  const user = await Users.findByPk(userId);
+
+  if (!user) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: { message: 'Cliente não existe' },
+    };
+  }
+
+  if (money < 1) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: { message: 'Quantidade do deposito não pode ser negativa ou igual a 0' },
+    };
+  }
+
+  await Users
+    .update({ balance: user.balance + money }, { where: { id: userId } });
+
+  return {
+    status: StatusCodes.OK,
+    response: {
+      id: userId,
+      name: user.name,
+      newBalance: user.balance + money,
+    },
+  };
+};
+
+export default { getById, deposit };

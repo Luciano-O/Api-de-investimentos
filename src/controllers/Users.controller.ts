@@ -9,4 +9,12 @@ const getById = async (req: Request, res: Response): Promise<Response> => {
   return res.status(status).json(response);
 };
 
-export default { getById };
+const deposit = async (req: Request, res: Response): Promise<Response> => {
+  const { CodCliente, Valor } = req.body;
+
+  const { status, response } = await UsersServices.deposit(CodCliente, Valor);
+
+  return res.status(status).json(response);
+};
+
+export default { getById, deposit };
