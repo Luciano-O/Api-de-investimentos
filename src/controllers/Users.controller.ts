@@ -17,4 +17,12 @@ const deposit = async (req: Request, res: Response): Promise<Response> => {
   return res.status(status).json(response);
 };
 
-export default { getById, deposit };
+const withdrawal = async (req: Request, res: Response): Promise<Response> => {
+  const { CodCliente, Valor } = req.body;
+
+  const { status, response } = await UsersServices.withdrawal(CodCliente, Valor);
+
+  return res.status(status).json(response);
+};
+
+export default { getById, deposit, withdrawal };
