@@ -82,7 +82,7 @@ const withdrawal = async (userId: number, money: number): Promise<IResponse> => 
 
   if (user.balance < money) {
     return {
-      status: StatusCodes.BAD_GATEWAY,
+      status: StatusCodes.BAD_REQUEST,
       response: { message: 'Saldo insuficiente' },
     };
   }
@@ -100,4 +100,6 @@ const withdrawal = async (userId: number, money: number): Promise<IResponse> => 
   };
 };
 
-export default { getById, deposit, withdrawal };
+export default {
+  getById, deposit, withdrawal, checkUser,
+};
