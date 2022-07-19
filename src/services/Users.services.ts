@@ -68,9 +68,8 @@ const deposit = async (userId: number, money: number): Promise<IResponse> => {
   return {
     status: StatusCodes.OK,
     response: {
-      id: userId,
-      name: user.name,
-      newBalance: user.balance + money,
+      CodCliente: userId,
+      Valor: money,
     },
   };
 };
@@ -93,9 +92,8 @@ const withdrawal = async (userId: number, money: number): Promise<IResponse> => 
   return {
     status: StatusCodes.OK,
     response: {
-      id: userId,
-      name: user.name,
-      newBalance: user.balance - money,
+      CodCliente: userId,
+      Valor: money,
     },
   };
 };

@@ -27,7 +27,11 @@ const requestById = async (stockId: number): Promise<IResponse> => {
 
   return {
     status: StatusCodes.OK,
-    response: stock,
+    response: {
+      CodAtivo: stock.id,
+      QtdeAtivo: stock.quantity,
+      Valor: parseFloat(stock.price.toFixed(2)),
+    },
   };
 };
 
