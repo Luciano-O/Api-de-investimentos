@@ -102,4 +102,6 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
   }
 };
 
-export default { create, update, requestById };
+export default {
+  create, update, requestById, validateCreate, validateUpdate, getById,
+};
