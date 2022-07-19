@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { StatusCodes } from 'http-status-codes';
 import sinon from 'sinon';
+import BuyedStocks from '../../src/database/models/BuyedStocks';
 
 import Stocks from '../../src/database/models/StocksModel';
 import Investments from '../../src/services/Investments.services'
@@ -57,26 +58,26 @@ describe('Valida se o cliente possui a quantidade suficiente para a venda', () =
   })
 })
 
-describe('Requisita as informações com base no id do ativo', () => {
-  const payloadId = 1;
-  before(async () => {
-    const execute = {
-      id: 1,
-      name: "ABEV3",
-      price: 14.57,
-      quantity: 99
-    }
-
-    sinon.stub(Stocks, 'findByPk').resolves(execute as any)
-  })
-
-  after(async () => {
-    sinon.restore();
-  })
-
+describe('Retorna as informações com base no id do ativo', () => {
+  const payloadId = 1
   describe('Quando o ativo existe', () => {
+    before(async () => {
+      const execute = {
+        id: 1,
+        name: "ABEV3",
+        price: 14.57,
+        quantity: 99
+      }
+  
+      sinon.stub(Stocks, 'findByPk').resolves(execute as any)
+    })
+  
+    after(async () => {
+      sinon.restore();
+    })
+
     it('retorna o objeto esperado', async () => {
-      const result = await Investments.getById(1)
+      const result = await Investments.getById(payloadId)
 
       expect(result).to.be.a('object');
       expect(result).to.contain(
@@ -87,6 +88,73 @@ describe('Requisita as informações com base no id do ativo', () => {
           quantity: 99
         }
       )
+    })
+  })
+})
+
+describe('Envia as informações do ativo', () => {
+  const payloadId = 1 
+  describe('Quando o ativo existe', () => {
+    before(async () => {
+      const execute = {
+        id: 1,
+        name: "ABEV3",
+        price: 14.57,
+        quantity: 99
+      }
+  
+      sinon.stub(Stocks, 'findByPk').resolves(execute as any)
+    })
+  
+    after(async () => {
+      sinon.restore();
+    })
+
+    it('retorna o objeto esperado', async () => {
+      const {status, response} = await Investments.requestById(payloadId)
+      expect(status).to.be.equal(StatusCodes.OK);
+      expect(response).to.be.a('object');
+      expect(response).to.contain({
+        id: 1,
+        name: "ABEV3",
+        price: 14.57,
+        quantity: 99
+      })
+    })
+  })
+})
+
+describe('Realiza uma nova compra', () => {
+  const payloadBuy = {
+    codAtivo: 1,
+    qtdeAtivo: 10,
+    codCliente: 1
+  }
+
+  describe('Quando realiza a compra corretamente', () => {
+    before(async () => {
+      const execute = {
+        id: 1,
+        name: "ABEV3",
+        price: 14.57,
+        quantity: 99
+      };
+
+      sinon.stub(Stocks, 'findByPk').resolves(execute as any);
+      sinon.stub(Stocks, 'update').resolves();
+      sinon.stub(BuyedStocks, 'create').resolves();
+    });
+
+    after(async () => {
+      sinon.restore();
+    });
+
+    it('Retorna o objeto correto', async () => {
+      const { status, response } = await Investments.create(payloadBuy)
+
+      expect(status).to.be.equal(StatusCodes.CREATED)
+      expect(response).to.be.an('object');
+      expect(response).to.contain({ message: `Foi realizada a compra de ${payloadBuy.qtdeAtivo} da ação ABEV3 resultando em um total de R$${payloadBuy.qtdeAtivo * (14.57 || 2)}` })
     })
   })
 })

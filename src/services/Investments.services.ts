@@ -52,7 +52,7 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
     await t.commit();
 
     return {
-      status: StatusCodes.OK,
+      status: StatusCodes.CREATED,
       response: { message: `Foi realizada a compra de ${qtdeAtivo} da ação ${name} resultando em um total de R$${qtdeAtivo * (price || 2)}` },
     };
   } catch (e) {
