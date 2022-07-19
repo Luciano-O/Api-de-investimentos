@@ -32,10 +32,8 @@ const requestById = async (stockId: number): Promise<IResponse> => {
 };
 
 const create = async (newBuy: INewBuy): Promise<IResponse> => {
-  const { codAtivo, qtdeAtivo } = newBuy;
-  const {
-    price, quantity, name,
-  } = await getById(codAtivo);
+  const { codAtivo, qtdeAtivo, codCliente } = newBuy;
+  const { quantity } = await getById(codAtivo);
 
   if (validateCreate(quantity, qtdeAtivo)
     .status !== 200) return validateCreate(quantity, qtdeAtivo);
@@ -53,7 +51,11 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
 
     return {
       status: StatusCodes.CREATED,
-      response: { message: `Foi realizada a compra de ${qtdeAtivo} da ação ${name} resultando em um total de R$${qtdeAtivo * (price || 2)}` },
+      response: {
+        codAtivo,
+        codCliente,
+        qtdeAtivo,
+      },
     };
   } catch (e) {
     await t.rollback();
@@ -67,7 +69,7 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
 const update = async (newBuy: INewBuy): Promise<IResponse> => {
   const { codCliente, codAtivo, qtdeAtivo } = newBuy;
   const buyedStock = await BuyedStocksServices.getByids(codCliente, codAtivo);
-  const { quantity, name, price } = await getById(codAtivo);
+  const { quantity } = await getById(codAtivo);
 
   if (!buyedStock) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Voce não possui essa ação' } };
   if (validateUpdate(buyedStock.quantity, qtdeAtivo).status !== 200) {
@@ -89,9 +91,9 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
     return {
       status: StatusCodes.OK,
       response: {
-        Ativo: name,
-        Quantity: qtdeAtivo,
-        FinalPrice: qtdeAtivo * price,
+        codCliente,
+        codAtivo,
+        qtdeAtivo,
       },
     };
   } catch (e) {

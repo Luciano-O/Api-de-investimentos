@@ -1,7 +1,12 @@
+import { StatusCodes } from 'http-status-codes';
 import { Transaction } from 'sequelize/types';
 import BuyedStocks from '../database/models/BuyedStocks';
+import Stocks from '../database/models/StocksModel';
 import IBuyedStock from '../interfaces/BuyedStock.interface';
+import IClientStocks from '../interfaces/ClientStocks.interface';
 import INewBuy from '../interfaces/NewBuy.interface';
+import IResponse from '../interfaces/Response.interface';
+import IReturnClientStocks from '../interfaces/ReturnClientStocks.interfaces';
 
 const getByids = async (userId: number, stockId: number): Promise<IBuyedStock | null> => {
   const buyedStock: IBuyedStock | null = await BuyedStocks.findOne({
@@ -43,4 +48,36 @@ const create = async (insert: INewBuy, t?: Transaction): Promise<void> => {
     .create({ userId: codCliente, stockId: codAtivo, quantity: qtdeAtivo }, { transaction: t });
 };
 
-export default { create, getByids, updateQuantity };
+const formatStocks = (stocks: IClientStocks[]): IReturnClientStocks[] => {
+  const result = stocks.map((item) => ({
+    CodCliente: item.userId,
+    CodAtivo: item.stockId,
+    QtdeAtivo: item.quantity,
+    Valor: parseFloat(item.stock.price.toFixed(2)),
+  }));
+
+  return result;
+};
+
+const getStocksByClient = async (userId: number): Promise<IResponse> => {
+  const stocks = await BuyedStocks.findAll({
+    include: {
+      model: Stocks,
+      attributes: ['price'],
+    },
+    where: { userId },
+  });
+
+  if (!stocks) throw new Error('Ativo não existe ou usuario não o possui');
+
+  const finalStocks = formatStocks(stocks as any);
+
+  return {
+    status: StatusCodes.OK,
+    response: finalStocks,
+  };
+};
+
+export default {
+  create, getByids, updateQuantity, getStocksByClient,
+};

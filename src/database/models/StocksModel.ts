@@ -40,6 +40,8 @@ Stocks.init({
   timestamps: false,
 });
 
+BuyedStocks.belongsTo(Stocks);
+
 Stocks.belongsToMany(Users, {
   through: BuyedStocks,
 });
