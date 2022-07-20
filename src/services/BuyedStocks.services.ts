@@ -68,7 +68,12 @@ const getStocksByClient = async (userId: number): Promise<IResponse> => {
     where: { userId },
   });
 
-  if (!stocks) throw new Error('Ativo não existe ou usuario não o possui');
+  if (!stocks) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: { message: 'O cliente não existe ou não possui ativos' },
+    };
+  }
 
   const finalStocks = formatStocks(stocks as any);
 
@@ -79,5 +84,5 @@ const getStocksByClient = async (userId: number): Promise<IResponse> => {
 };
 
 export default {
-  create, getByids, updateQuantity, getStocksByClient,
+  create, getByids, updateQuantity, getStocksByClient, formatStocks,
 };

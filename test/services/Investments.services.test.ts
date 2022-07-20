@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { StatusCodes } from 'http-status-codes';
 import sinon from 'sinon';
+import BuyedStocks from '../../src/database/models/BuyedStocks';
 
 import Stocks from '../../src/database/models/StocksModel';
 import BuyedStocksServices from '../../src/services/BuyedStocks.services';
@@ -182,7 +183,8 @@ describe('Testa o service de Investments', () => {
         }
 
         sinon.stub(BuyedStocksServices, 'getByids').resolves(execute as any);
-        sinon.stub(Investments, 'getById').resolves(execute2);
+        sinon.stub(BuyedStocks, 'findOne').resolves(execute as any)
+        sinon.stub(Stocks, 'findByPk').resolves(execute2 as any);
         sinon.stub(Stocks, 'update').resolves();
         sinon.stub(BuyedStocksServices, 'updateQuantity').resolves();
       })
