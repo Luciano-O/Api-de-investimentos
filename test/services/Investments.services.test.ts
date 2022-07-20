@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { StatusCodes } from 'http-status-codes';
 import sinon from 'sinon';
-import BuyedStocks from '../../src/database/models/BuyedStocks';
 
+import BuyedStocks from '../../src/database/models/BuyedStocks';
 import Stocks from '../../src/database/models/StocksModel';
 import BuyedStocksServices from '../../src/services/BuyedStocks.services';
 import Investments from '../../src/services/Investments.services'
