@@ -44,7 +44,8 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register test/**/*.test.ts",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:create": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npm run db:create",
     "start": "node ./dist/server.js",
     "coverage": "nyc --all --include src/services npm run test"
   },
