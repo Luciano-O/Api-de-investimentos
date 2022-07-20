@@ -64,7 +64,7 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
   } catch (e) {
     await t.rollback();
     return {
-      status: StatusCodes.BAD_REQUEST,
+      status: StatusCodes.BAD_GATEWAY,
       response: { message: 'Algo deu errado' },
     };
   }
@@ -94,11 +94,7 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
 
     return {
       status: StatusCodes.OK,
-      response: {
-        codCliente,
-        codAtivo,
-        qtdeAtivo,
-      },
+      response: newBuy,
     };
   } catch (e) {
     return {

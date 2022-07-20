@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { StatusCodes } from 'http-status-codes';
 import sinon from 'sinon';
-import BuyedStocks from '../../src/database/models/BuyedStocks';
 
 import Stocks from '../../src/database/models/StocksModel';
 import BuyedStocksServices from '../../src/services/BuyedStocks.services';
@@ -156,6 +155,48 @@ describe('Testa o service de Investments', () => {
         expect(status).to.be.equal(StatusCodes.CREATED)
         expect(response).to.be.an('object');
         expect(response).to.contain(payloadBuy)
+      })
+    })
+  })
+
+  describe('Realiza uma venda', () => {
+    const payloadSell = {
+      codAtivo: 1,
+      qtdeAtivo: 10,
+      codCliente: 1
+    }
+
+    describe('Quando a venda é realizada corretamente', () => {
+      before(async () => {
+        const execute = {
+          userId: 1,
+          stockId: 1,
+          quantity: 20
+        }
+
+        const execute2 = {
+          id: 1,
+          name: "ABEV3",
+          price: 14.57,
+          quantity: 99
+        }
+
+        sinon.stub(BuyedStocksServices, 'getByids').resolves(execute as any);
+        sinon.stub(Investments, 'getById').resolves(execute2);
+        sinon.stub(Stocks, 'update').resolves();
+        sinon.stub(BuyedStocksServices, 'updateQuantity').resolves();
+      })
+
+      after(async () => {
+        sinon.restore();
+      })
+
+      it('Retorna o objeto correto', async () => {
+        const { status, response } = await Investments.update(payloadSell);
+
+        expect(status).to.be.equal(StatusCodes.OK);
+        expect(response).to.be.an('object');
+        expect(response).to.contain(payloadSell)
       })
     })
   })
