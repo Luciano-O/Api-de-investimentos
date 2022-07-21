@@ -4,6 +4,6 @@
 
 - [About](#about)
 - [Setup](#setup)
-    -[Requeriments](#project-requeriments)
-    -[Run](#project-run)
-    -[Usage](#project-usage)
+    - [Requeriments](#project-requeriments)
+    - [Run](#project-run)
+    - [Usage](#project-usage)
