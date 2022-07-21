@@ -3,7 +3,7 @@
 ## Súmario
 
 - [About](#about)
-- [Setut](#setup)
-  -[Requeriments](#project-requeriments)
-  -[Run](#project-run)
-  -[Usage](#project-usage)
+- [Setup](#setup)
+    -[Requeriments](#project-requeriments)
+    -[Run](#project-run)
+    -[Usage](#project-usage)
