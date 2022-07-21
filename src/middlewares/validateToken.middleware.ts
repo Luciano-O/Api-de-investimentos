@@ -12,8 +12,10 @@ const validateToken = (req: IRequest, res: Response, next: NextFunction): Respon
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Token not found' });
   }
 
+  const [, auth] = token.split(' ');
+
   try {
-    const decoded = jwt.verify(token, secret) as jwt.JwtPayload;
+    const decoded = jwt.verify(auth, secret) as jwt.JwtPayload;
     req.user = decoded.data.id;
   } catch (e) {
     return res.status(401).json({ message: 'Invalid token' });

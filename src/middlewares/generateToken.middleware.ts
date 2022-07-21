@@ -10,9 +10,9 @@ const jwtConfig: SignOptions = {
 const secret: Secret = process.env.JWT_SECRET || 'pselXp';
 
 const generateToken = (req: Request, res: Response) => {
-  const { id, name } = req.body;
+  const { CodCliente, Name } = req.body;
 
-  const token = jwt.sign({ data: { id, name } }, secret, jwtConfig);
+  const token = jwt.sign({ data: { CodCliente, Name } }, secret, jwtConfig);
 
   res.status(StatusCodes.CREATED).json({ token });
 };
