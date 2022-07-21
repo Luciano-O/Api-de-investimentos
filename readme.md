@@ -23,3 +23,6 @@ A aplicação foi desenvolvida em TypeScript utilizando NodeJs e tambem utilizan
 Express para a criação da api, alem de outras bibliotecas que podem ser consultadas no package.json.
 
 Para os testes foi usado o Jest, alem das bibliotecas mocha, chai e sinon para complementar.
+
+Apesar do uso do TypeScript, o projeto não seguiu o paradigma de orientação à objetos. A arquitetura MSC
+foi usada para estruturar essa api, tendo a camada de models sendo controlada pelo Sequelize.
