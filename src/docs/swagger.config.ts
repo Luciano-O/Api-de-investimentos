@@ -2,7 +2,7 @@ const swaggerConfig = {
   definition: {
     openapi: '3.0.1',
     info: {
-      title: 'Psel-XP back-end',
+      title: 'Luciano Oliveira Psel-XP back-end',
       description: 'Api que registra ações, clientes, compras e vendas de ações',
       version: '1.0',
     },

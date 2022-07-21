@@ -1,7 +1,7 @@
 interface INewBuy {
-  codCliente: number,
-  codAtivo: number,
-  qtdeAtivo: number
+  CodCliente: number,
+  CodAtivo: number,
+  QtdeAtivo: number
 }
 
 export default INewBuy;

@@ -6,8 +6,8 @@ import IStock from '../interfaces/Stock.interface';
 import BuyedStocksServices from './BuyedStocks.services';
 import IResponse from '../interfaces/Response.interface';
 
-const validateCreate = (stockQtd: number, qtdeAtivo: number): IResponse => {
-  if (qtdeAtivo > stockQtd) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Quantidade da ação acima do limite' } };
+const validateCreate = (stockQtd: number, QtdeAtivo: number): IResponse => {
+  if (QtdeAtivo > stockQtd) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Quantidade da ação acima do limite' } };
   return { status: StatusCodes.OK };
 };
 
@@ -36,17 +36,17 @@ const requestById = async (stockId: number): Promise<IResponse> => {
 };
 
 const create = async (newBuy: INewBuy): Promise<IResponse> => {
-  const { codAtivo, qtdeAtivo, codCliente } = newBuy;
-  const { quantity } = await getById(codAtivo);
+  const { CodAtivo, QtdeAtivo, CodCliente } = newBuy;
+  const { quantity } = await getById(CodAtivo);
 
-  if (validateCreate(quantity, qtdeAtivo)
-    .status !== 200) return validateCreate(quantity, qtdeAtivo);
+  if (validateCreate(quantity, QtdeAtivo)
+    .status !== 200) return validateCreate(quantity, QtdeAtivo);
 
   const t = await seq.transaction();
   try {
     await Stocks.update(
-      { quantity: quantity - qtdeAtivo },
-      { where: { id: codAtivo }, transaction: t },
+      { quantity: quantity - QtdeAtivo },
+      { where: { id: CodAtivo }, transaction: t },
     );
 
     await BuyedStocksServices.create(newBuy, t);
@@ -56,9 +56,9 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
     return {
       status: StatusCodes.CREATED,
       response: {
-        codAtivo,
-        codCliente,
-        qtdeAtivo,
+        CodAtivo,
+        CodCliente,
+        QtdeAtivo,
       },
     };
   } catch (e) {
@@ -71,24 +71,24 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
 };
 
 const update = async (newBuy: INewBuy): Promise<IResponse> => {
-  const { codCliente, codAtivo, qtdeAtivo } = newBuy;
-  const buyedStock = await BuyedStocksServices.getByids(codCliente, codAtivo);
-  const { quantity } = await getById(codAtivo);
+  const { CodCliente, CodAtivo, QtdeAtivo } = newBuy;
+  const buyedStock = await BuyedStocksServices.getByids(CodCliente, CodAtivo);
+  const { quantity } = await getById(CodAtivo);
 
   if (!buyedStock) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Voce não possui essa ação' } };
-  if (validateUpdate(buyedStock.quantity, qtdeAtivo).status !== 200) {
-    return validateUpdate(buyedStock.quantity, qtdeAtivo);
+  if (validateUpdate(buyedStock.quantity, QtdeAtivo).status !== 200) {
+    return validateUpdate(buyedStock.quantity, QtdeAtivo);
   }
 
   const t = await seq.transaction();
   try {
     await Stocks.update(
-      { quantity: quantity + qtdeAtivo },
-      { where: { id: codAtivo }, transaction: t },
+      { quantity: quantity + QtdeAtivo },
+      { where: { id: CodAtivo }, transaction: t },
     );
 
     await BuyedStocksServices
-      .updateQuantity(codCliente, codAtivo, buyedStock.quantity - qtdeAtivo, t);
+      .updateQuantity(CodCliente, CodAtivo, buyedStock.quantity - QtdeAtivo, t);
 
     t.commit();
 

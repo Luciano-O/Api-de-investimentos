@@ -38,14 +38,14 @@ const updateQuantity = async (
 };
 
 const create = async (insert: INewBuy, t?: Transaction): Promise<void> => {
-  const { codAtivo, codCliente, qtdeAtivo } = insert;
-  const buyedStock = await getByids(codCliente, codAtivo);
+  const { CodAtivo, CodCliente, QtdeAtivo } = insert;
+  const buyedStock = await getByids(CodCliente, CodAtivo);
   if (buyedStock) {
-    await updateQuantity(codCliente, codAtivo, buyedStock.quantity + qtdeAtivo, t);
+    await updateQuantity(CodCliente, CodAtivo, buyedStock.quantity + QtdeAtivo, t);
     return;
   }
   await BuyedStocks
-    .create({ userId: codCliente, stockId: codAtivo, quantity: qtdeAtivo }, { transaction: t });
+    .create({ userId: CodCliente, stockId: CodAtivo, quantity: QtdeAtivo }, { transaction: t });
 };
 
 const formatStocks = (stocks: IClientStocks[]): IReturnClientStocks[] => {

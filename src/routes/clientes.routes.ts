@@ -162,7 +162,7 @@ usersRouter.get('/conta/:id', UsersController.getById);
  *    post:
  *      tags: [Conta]
  *      description: Endpoint que realiza um deposito na conta do cliente com base no id,
- *        referente ao quinto requisito proposto no desafio
+ *        referente ao quinto requisito proposto no desafio.
  *      security:
  *        - bearerAuth: []
  *      requestBody:
@@ -196,7 +196,7 @@ usersRouter.post('/conta/deposito', validateToken, UsersController.deposit);
  *    post:
  *      tags: [Conta]
  *      description: Endpoint que realiza um saque na conta do cliente com base no id,
- *        referente ao sexto requisito proposto no desafio
+ *        referente ao sexto requisito proposto no desafio.
  *      security:
  *        - bearerAuth: []
  *      requestBody:
