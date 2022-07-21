@@ -2,7 +2,7 @@
 
 ## Súmario
 
-- [Sobre](#about)
+- [Sobre](#Sobre)
 - [Setup](#setup)
     - [Requisitos](#project-requeriments)
     - [Configurações](#project-configurations)
