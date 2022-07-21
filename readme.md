@@ -8,7 +8,7 @@
     - [Configurações](#project-configurations)
     - [Rodar](#project-run)
     - [Usar](#project-usage)
-- [Links]
+- [Links](#links)
 
 ## Sobre
 
@@ -26,3 +26,9 @@ Para os testes foi usado o Jest, alem das bibliotecas mocha, chai e sinon para c
 
 Apesar do uso do TypeScript, o projeto não seguiu o paradigma de orientação à objetos. A arquitetura MSC
 foi usada para estruturar essa api, tendo a camada de models sendo controlada pelo Sequelize.
+
+## Setup
+
+Nessa sessão iremos mostrar um passo a passo de tudo oque você precisa fazer para rodar esse projeto na sua maquina.
+Lembrando que essa api esta documentada e deployada, então caso queira testa-la sem precisar instalar tudo no seu
+computador basta clicar <a href="https://luciano-pselxp-back-end.herokuapp.com/docs/">AQUI</a> que você sera redirecionado para a pagina de documentação da aplicação funcionando.
