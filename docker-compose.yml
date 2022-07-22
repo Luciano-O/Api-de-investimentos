@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  node:
+    image: node:16
+    container_name: psel-xp
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      DB_USER: root
+      DB_PASS: password
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DIALIECT: mysql
+      JWT_SECRET: seuSegredoAqui
+      PORT: 3000
+
+  db:
+    container_name: psel-xp-db
+    image: mysql:8.0.21
+    restart: always
+    ports:
+      - 3307:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+networks:
+  default:
+    name: psel-xp_net
