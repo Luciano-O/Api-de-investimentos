@@ -3,6 +3,7 @@
 ## Súmario
 
 - [Sobre](#sobre)
+- [Docker](#docker)
 - [Setup](#setup)
     - [Requisitos](#requisitos)
     - [Configurações](#configurações)
@@ -27,6 +28,24 @@ basta usar o comando:    `npm test`.
 
 Apesar do uso do TypeScript, o projeto não seguiu o paradigma de orientação à objetos. A arquitetura MSC
 foi usada para estruturar essa api, tendo a camada de models sendo controlada pelo Sequelize.
+
+## Docker
+
+Nessa seção você vera como rodar a api através do Docker, que é a maneira como recomendamos que ela seja executada.
+
+Lembrando que antes de tudo você deve ter clonado o repositorio antes e possuir o Docker instalado.
+
+1. No terminal, dentro do diretório do projeto, instale as dependencias usando o comando abaixo
+    + `$ npm install`
+    + `$ docker-compose up -d`
+    + `$ exec -it psel-xp bash`
+2. Nesse momento você tera entrado no terminal do container, uma vez presente nele, realize os seguintes comandos.
+    + `$ npm run build`
+    + `$ npm run db:reset`
+    + `$ npm start`
+
+E pronto, agora a api ja esta rodando através do Docker na sua maquina, na porta 3000, podendo ser acessada pelo endereço
+"http://localhost:3000". considere começar os testes pelo endereço, "http://localhost:3000/docs"
 
 ## Setup
 
