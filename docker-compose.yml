@@ -20,7 +20,7 @@ services:
       DB_PASS: password
       DB_HOST: db
       DB_PORT: 3306
-      DB_DIALIECT: mysql
+      DB_DIALECT: mysql
       JWT_SECRET: seuSegredoAqui
       PORT: 3000
 
