@@ -7,7 +7,7 @@ const config: Options = {
   database: process.env.DB_NAME || 'XP',
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT) || 3306,
-  dialect: process.env.DB_DIALECT as Dialect,
+  dialect: process.env.DB_DIALECT as Dialect || 'mysql',
 };
 
 export = config;
