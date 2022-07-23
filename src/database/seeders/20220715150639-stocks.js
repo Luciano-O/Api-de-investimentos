@@ -6,14 +6,16 @@ module.exports = {
         {
           name: 'ABEV3',
           quantity: 99,
-          price: 14.57
+          price: 14.57,
         },
         {
           name: 'ANIM3',
           quantity: 70,
-          price: 4.34
+          price: 4.34,
         },
-      ], { timestamps: false },
+      ],
+
+      { timestamps: false },
     );
   },
 

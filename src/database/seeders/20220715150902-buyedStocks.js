@@ -6,14 +6,16 @@ module.exports = {
         {
           userId: 1,
           stockId: 2,
-          quantity: 3
+          quantity: 3,
         },
         {
           userId: 2,
           stockId: 1,
-          quantity: 5
+          quantity: 5,
         },
-      ], { timestamps: false },
+      ],
+
+      { timestamps: false },
     );
   },
 

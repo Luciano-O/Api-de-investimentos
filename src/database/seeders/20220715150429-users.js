@@ -6,14 +6,16 @@ module.exports = {
         {
           name: 'Luciano Oliveira',
           password: 'lucki123',
-          balance: 250.50
+          balance: 250.50,
         },
         {
           name: 'Adevani Nascimento',
           password: 'xablau123',
-          balance: 1550.30
+          balance: 1550.30,
         },
-      ], { timestamps: false },
+      ],
+
+      { timestamps: false },
     );
   },
 
