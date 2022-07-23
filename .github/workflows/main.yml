@@ -17,3 +17,19 @@ jobs:
 
       - name: executando o lint para verificar se a erros
         run: npx eslint .
+  Testes_unitarios:
+    runs-on: ubunto-latest
+    steps:
+      - name: verifica o repositório Git
+        uses: actions/checkout@v2
+
+      - name: Instala o node com a versão
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      
+      - name: instalando dependencias
+        run: npm install
+
+      - name: executando os testes
+        run: npm run test
