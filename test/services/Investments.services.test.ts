@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import sinon from 'sinon';
 
 import BuyedStocks from '../../src/database/models/BuyedStocks';
+import seq from '../../src/database/models';
 import Stocks from '../../src/database/models/StocksModel';
 import BuyedStocksServices from '../../src/services/BuyedStocks.services';
 import Investments from '../../src/services/Investments.services'
@@ -141,8 +142,16 @@ describe('Testa o service de Investments', () => {
           quantity: 99
         };
 
+        const t = {
+          rollback: () => {},
+          commit: () => {}
+        }
+
         sinon.stub(Stocks, 'findByPk').resolves(execute as any);
         sinon.stub(Stocks, 'update').resolves();
+        sinon.stub(BuyedStocks, 'create').resolves();
+        sinon.stub(seq, 'transaction').resolves(t as any);
+        sinon.stub(BuyedStocks, 'findOne').resolves();
         sinon.stub(BuyedStocksServices, 'create').resolves();
       });
 
@@ -182,8 +191,14 @@ describe('Testa o service de Investments', () => {
           quantity: 99
         }
 
+        const t = {
+          rollback: () => {},
+          commit: () => {}
+        }
+
         sinon.stub(BuyedStocksServices, 'getByids').resolves(execute as any);
-        sinon.stub(BuyedStocks, 'findOne').resolves(execute as any)
+        sinon.stub(BuyedStocks, 'findOne').resolves(execute as any);
+        sinon.stub(seq, 'transaction').resolves(t as any);
         sinon.stub(Stocks, 'findByPk').resolves(execute2 as any);
         sinon.stub(Stocks, 'update').resolves();
         sinon.stub(BuyedStocksServices, 'updateQuantity').resolves();
