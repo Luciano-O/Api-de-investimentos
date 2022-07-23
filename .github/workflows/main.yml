@@ -17,7 +17,7 @@ jobs:
 
       - name: executando o lint para verificar se a erros
         run: npx eslint .
-  Testes_unitarios:
+  Testes:
     runs-on: ubunto-latest
     needs: [eslint]
     steps:
