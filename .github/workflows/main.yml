@@ -19,6 +19,7 @@ jobs:
         run: npx eslint .
   Testes_unitarios:
     runs-on: ubunto-latest
+    needs: [eslint]
     steps:
       - name: verifica o repositório Git
         uses: actions/checkout@v2
