@@ -127,9 +127,9 @@ describe('Testa o service de Investments', () => {
 
   describe('Realiza uma nova compra', () => {
     const payloadBuy = {
-      codAtivo: 1,
-      qtdeAtivo: 10,
-      codCliente: 1
+      CodAtivo: 1,
+      QtdeAtivo: 10,
+      CodCliente: 1
     }
 
     describe('Quando realiza a compra corretamente', () => {
@@ -162,9 +162,9 @@ describe('Testa o service de Investments', () => {
 
   describe('Realiza uma venda', () => {
     const payloadSell = {
-      codAtivo: 1,
-      qtdeAtivo: 10,
-      codCliente: 1
+      CodAtivo: 1,
+      QtdeAtivo: 10,
+      CodCliente: 1
     }
 
     describe('Quando a venda é realizada corretamente', () => {
