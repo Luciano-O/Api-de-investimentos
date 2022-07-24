@@ -3,6 +3,7 @@
 ## Súmario
 
 - [Sobre](#sobre)
+- [Autênticação](#autênticação)
 - [Docker](#docker)
 - [Setup](#setup)
     - [Requisitos](#requisitos)
@@ -28,6 +29,14 @@ basta usar o comando:    `npm test`.
 
 Apesar do uso do TypeScript, o projeto não seguiu o paradigma de orientação à objetos. A arquitetura MSC
 foi usada para estruturar essa api, tendo a camada de models sendo controlada pelo Sequelize.
+
+## Autênticação
+
+Essa api usa o padrão Bearer para autênticação, e a biblioteca json-web-token para gerar e autêtnicar os tokens
+necessarios para o uso de certar rotas.
+
+Como vera na documentação, algumas rotas necessitam do token para serem acessadas, você pode conseguir esse token
+através da rota /conta/token, como descrito na documentação.
 
 ## Docker
 
