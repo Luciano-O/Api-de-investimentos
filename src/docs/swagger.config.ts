@@ -6,14 +6,14 @@ const swaggerConfig = {
       description: 'Api que registra ações, clientes, compras e vendas de ações',
       version: '1.0',
     },
-    servers: [{
-      url: `http://localhost:${process.env.PORT}`,
-      description: 'Servidor Local',
-    },
-    {
-      url: 'https://luciano-pselxp-back-end.herokuapp.com',
-      description: 'Servidor deployado',
-    }],
+    servers: [
+      {
+        url: 'https://luciano-pselxp-back-end.herokuapp.com',
+        description: 'Servidor deployado',
+      }, {
+        url: `http://localhost:${process.env.PORT}`,
+        description: 'Servidor Local',
+      }],
     components: {
       securitySchemes: {
         bearerAuth: {
