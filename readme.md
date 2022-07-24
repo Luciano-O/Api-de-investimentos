@@ -3,7 +3,7 @@
 ## Súmario
 
 - [Sobre](#sobre)
-- [Autênticação](#autenticacao)
+- [Autênticação](#autênticação)
 - [Docker](#docker)
 - [Setup](#setup)
     - [Requisitos](#requisitos)
@@ -32,11 +32,11 @@ foi usada para estruturar essa api, tendo a camada de models sendo controlada pe
 
 ## Autênticação
 
-Essa api usa o padrão Bearer para autêticação, e a biblioteca json-web-token para gerar e autêticar os tokens
+Essa api usa o padrão Bearer para autênticação, e a biblioteca json-web-token para gerar e autêtnicar os tokens
 necessarios para o uso de certar rotas.
 
 Como vera na documentação, algumas rotas necessitam do token para serem acessadas, você pode conseguir esse token
-através da rota /conta/token como descrito na documentação.
+através da rota /conta/token, como descrito na documentação.
 
 ## Docker
 
