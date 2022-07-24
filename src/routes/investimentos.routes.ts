@@ -13,7 +13,7 @@ const investRouter = Router();
 
 /**
  * @swagger
- *  /investimento/comprar:
+ *  /investimentos/comprar:
  *    post:
  *      tags: [Investimentos]
  *      description: Endpoint que realiza uma compra com base nos ids do cliente e do ativo,
@@ -59,7 +59,7 @@ investRouter.post('/investimentos/comprar', validateToken, InvestmentsController
 
 /**
  * @swagger
- *  /investimento/vender:
+ *  /investimentos/vender:
  *    post:
  *      tags: [Investimentos]
  *      description: Endpoint que realiza uma venda com base nos ids do cliente e do ativo,

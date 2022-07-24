@@ -5,6 +5,7 @@ import INewBuy from '../interfaces/NewBuy.interface';
 import IStock from '../interfaces/Stock.interface';
 import BuyedStocksServices from './BuyedStocks.services';
 import IResponse from '../interfaces/Response.interface';
+import UsersServices from './Users.services';
 
 const validateCreate = (stockQtd: number, QtdeAtivo: number): IResponse => {
   if (QtdeAtivo > stockQtd) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Quantidade da ação acima do limite' } };
@@ -37,7 +38,7 @@ const requestById = async (stockId: number): Promise<IResponse> => {
 
 const create = async (newBuy: INewBuy): Promise<IResponse> => {
   const { CodAtivo, QtdeAtivo, CodCliente } = newBuy;
-  const { quantity } = await getById(CodAtivo);
+  const { quantity, price } = await getById(CodAtivo);
 
   if (validateCreate(quantity, QtdeAtivo)
     .status !== 200) return validateCreate(quantity, QtdeAtivo);
@@ -50,6 +51,8 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
     );
 
     await BuyedStocksServices.create(newBuy, t);
+
+    await UsersServices.withdrawal(CodCliente, price * QtdeAtivo, t);
 
     await t.commit();
 
@@ -73,7 +76,7 @@ const create = async (newBuy: INewBuy): Promise<IResponse> => {
 const update = async (newBuy: INewBuy): Promise<IResponse> => {
   const { CodCliente, CodAtivo, QtdeAtivo } = newBuy;
   const buyedStock = await BuyedStocksServices.getByids(CodCliente, CodAtivo);
-  const { quantity } = await getById(CodAtivo);
+  const { quantity, price } = await getById(CodAtivo);
 
   if (!buyedStock) return { status: StatusCodes.BAD_REQUEST, response: { message: 'Voce não possui essa ação' } };
   if (validateUpdate(buyedStock.quantity, QtdeAtivo).status !== 200) {
@@ -89,6 +92,8 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
 
     await BuyedStocksServices
       .updateQuantity(CodCliente, CodAtivo, buyedStock.quantity - QtdeAtivo, t);
+
+    await UsersServices.deposit(CodCliente, price * QtdeAtivo, t);
 
     t.commit();
 
