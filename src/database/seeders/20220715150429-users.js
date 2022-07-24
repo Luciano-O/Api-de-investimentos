@@ -13,6 +13,26 @@ module.exports = {
           password: 'xablau123',
           balance: 1550.30,
         },
+        {
+          name: 'Ana Carolina',
+          password: '12345678',
+          balance: 27200.30,
+        },
+        {
+          name: 'Hanna Louise',
+          password: '12345678',
+          balance: 7800.50,
+        },
+        {
+          name: 'Marcus Winnicius',
+          password: '12345678',
+          balance: 2830.85,
+        },
+        {
+          name: 'Leonardo Morijo',
+          password: '12345678',
+          balance: 100000.00,
+        },
       ],
 
       { timestamps: false },
