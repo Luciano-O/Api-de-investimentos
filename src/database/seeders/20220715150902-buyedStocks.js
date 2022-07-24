@@ -40,7 +40,7 @@ module.exports = {
         },
         {
           userId: 5,
-          stockId: 4,
+          stockId: 1,
           quantity: 30,
         },
       ],
