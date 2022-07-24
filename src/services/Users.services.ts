@@ -6,6 +6,22 @@ import IResponse from '../interfaces/Response.interface';
 import IUser from '../interfaces/User.interfaces';
 import HttpException from '../shared/http.exception';
 
+const formatFullUser = (user: IUser): IUser => {
+  const result = {
+    id: user.id,
+    name: user.name,
+    balance: Number(user.balance.toFixed(2)),
+    stocks: user.stocks?.map((stock) => ({
+      id: stock.id,
+      name: stock.name,
+      price: Number(stock.price.toFixed(2)),
+      quantity: stock.buyedStocks.quantity,
+    })),
+  };
+
+  return result as IUser;
+};
+
 const getById = async (id: number): Promise<IResponse> => {
   const user = await Users.findByPk(id, {
     include: {
@@ -25,7 +41,7 @@ const getById = async (id: number): Promise<IResponse> => {
 
   return {
     status: StatusCodes.OK,
-    response: user as IUser,
+    response: formatFullUser(user) as IUser,
   };
 };
 
