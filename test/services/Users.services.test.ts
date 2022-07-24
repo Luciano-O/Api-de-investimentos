@@ -4,6 +4,21 @@ import sinon from 'sinon';
 
 import Users from '../../src/database/models/UsersModel';
 import UsersServices from '../../src/services/Users.services';
+import HttpException from '../../src/shared/http.exception';
+
+const expectThrowsAsync = async (method: Function, errorMessage?: string) => {
+  let error: any = null
+  try {
+    await method()
+  }
+  catch (err) {
+    error = err
+  }
+  expect(error).to.be.an('Error')
+  if (errorMessage) {
+    expect(error.message).to.equal(errorMessage)
+  }
+}
 
 const returnMock = {
   id: 2,
@@ -206,11 +221,7 @@ describe('Testa a camada service de Users', () => {
       })
 
       it('Retorna o objeto correto', async () => {
-        const { status, response } = await UsersServices.withdrawal(payloadId, 5000);
-
-        expect(status).to.be.equal(StatusCodes.BAD_REQUEST);
-        expect(response).to.be.an('object');
-        expect(response).to.contain({message: 'Saldo insuficiente'})
+        await expectThrowsAsync(() => UsersServices.withdrawal(payloadId, 5000), 'Saldo insuficiente')
       })
     })
   })

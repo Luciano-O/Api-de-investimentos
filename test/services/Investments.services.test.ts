@@ -7,6 +7,8 @@ import seq from '../../src/database/models';
 import Stocks from '../../src/database/models/StocksModel';
 import BuyedStocksServices from '../../src/services/BuyedStocks.services';
 import Investments from '../../src/services/Investments.services'
+import Users from '../../src/database/models/UsersModel';
+import UsersServices from '../../src/services/Users.services';
 
 describe('Testa o service de Investments', () => {
   describe('Valida se a quantidade para compra esta disponivel no estoque', () => {
@@ -150,6 +152,7 @@ describe('Testa o service de Investments', () => {
         sinon.stub(Stocks, 'findByPk').resolves(execute as any);
         sinon.stub(Stocks, 'update').resolves();
         sinon.stub(BuyedStocks, 'create').resolves();
+        sinon.stub(UsersServices, 'withdrawal').resolves();
         sinon.stub(seq, 'transaction').resolves(t as any);
         sinon.stub(BuyedStocks, 'findOne').resolves();
         sinon.stub(BuyedStocksServices, 'create').resolves();
@@ -199,6 +202,7 @@ describe('Testa o service de Investments', () => {
         sinon.stub(BuyedStocksServices, 'getByids').resolves(execute as any);
         sinon.stub(BuyedStocks, 'findOne').resolves(execute as any);
         sinon.stub(seq, 'transaction').resolves(t as any);
+        sinon.stub(UsersServices, 'deposit').resolves();
         sinon.stub(Stocks, 'findByPk').resolves(execute2 as any);
         sinon.stub(Stocks, 'update').resolves();
         sinon.stub(BuyedStocksServices, 'updateQuantity').resolves();

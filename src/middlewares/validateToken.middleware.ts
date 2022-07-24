@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 import IRequest from '../interfaces/request.interface';
+import HttpException from '../shared/http.exception';
 
 const secret = process.env.JWT_SECRET || 'pselXp';
 
@@ -18,7 +19,7 @@ const validateToken = (req: IRequest, res: Response, next: NextFunction): Respon
     const decoded = jwt.verify(auth, secret) as jwt.JwtPayload;
     req.user = decoded.data.id;
   } catch (e) {
-    return res.status(401).json({ message: 'Invalid token' });
+    throw new HttpException(401, 'Invalid token');
   } return next();
 };
 
