@@ -1,4 +1,4 @@
-# Luciano Oliveira - Processo seletivo XP - Back-end
+# Api de investimentos
 
 ## Súmario
 
@@ -13,8 +13,6 @@
 - [Links](#links)
 
 ## Sobre
-
-Este projeto foi pensado e desenvolvido para o processo seletivo da XP em parceria com a Trybe.
 
 O intuito foi criar uma api que realizasse o CRUD em um banco de dados sql, utilizando o typeORM 
 Sequelize para conexão com o banco manipulando os dados de uma aplicação de investimentos, 
