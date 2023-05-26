@@ -8,7 +8,7 @@ const swaggerConfig = {
     },
     servers: [
       {
-        url: 'http://18.231.1.209:3001',
+        url: `http://18.231.1.209:${process.env.PORT}`,
         description: 'Servidor deployado',
       }, {
         url: `http://localhost:${process.env.PORT}`,
