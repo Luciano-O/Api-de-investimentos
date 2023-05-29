@@ -1,6 +1,9 @@
-import { Sequelize } from 'sequelize';
 import 'dotenv/config';
+import { z } from 'zod';
+import { Sequelize } from 'sequelize';
 
-const { URL }: string = process.env;
+const urlVerify = z.string();
 
-export default new Sequelize(URL);
+const DB_URL: string = urlVerify.parse(process.env.URL);
+
+export default new Sequelize(DB_URL);
