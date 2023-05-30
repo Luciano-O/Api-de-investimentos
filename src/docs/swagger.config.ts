@@ -8,7 +8,7 @@ const swaggerConfig = {
     },
     servers: [
       {
-        url: `http://18.231.1.209:${process.env.PORT}`,
+        url: 'https://api-invest.onrender.com',
         description: 'Servidor deployado',
       }, {
         url: `http://localhost:${process.env.PORT}`,
