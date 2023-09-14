@@ -1,9 +1,12 @@
 import 'dotenv/config';
-import { z } from 'zod';
+import path from 'path';
 import { Sequelize } from 'sequelize';
 
-const urlVerify = z.string();
+const sqliteStoragePath = path.join(__dirname, '..', 'database.sqlite');
 
-const DB_URL: string = urlVerify.parse(process.env.URL);
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: sqliteStoragePath,
+});
 
-export default new Sequelize(DB_URL);
+export default sequelize;

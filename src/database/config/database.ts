@@ -1,13 +1,12 @@
 import 'dotenv/config';
-import { Dialect, Options } from 'sequelize';
+import path from 'path';
+import { Options } from 'sequelize';
+
+const databasePath = path.join(__dirname, '..', 'database.sqlite');
 
 const config: Options = {
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT) || 3306,
-  dialect: process.env.DB_DIALECT as Dialect,
+  storage: databasePath,
+  dialect: 'sqlite',
 };
 
 export = config;
