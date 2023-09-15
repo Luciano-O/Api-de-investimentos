@@ -42,6 +42,17 @@ const login = async (req: Request, res: Response): Promise<Response> => {
   return res.status(status).json(response);
 };
 
+const register = async (req: Request, res: Response): Promise<Response> => {
+  const { email, password, name } = req.body;
+  const balance = 0;
+
+  const { status, response } = await UsersServices.register({
+    email, password, name, balance,
+  });
+
+  return res.status(status).json(response);
+};
+
 export default {
-  getById, deposit, withdrawal, getStocksByClient, login,
+  getById, deposit, withdrawal, getStocksByClient, login, register,
 };

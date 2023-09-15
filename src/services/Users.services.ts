@@ -150,6 +150,33 @@ const login = async (email: string, password: string): Promise<IResponse> => {
   };
 };
 
+const register = async (user: IUser): Promise<IResponse> => {
+  console.log(user);
+
+  try {
+    const createdUser = await Users.create({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      balance: user.balance,
+    });
+
+    const token = generateToken(createdUser.id, user.name, user.email);
+
+    return {
+      status: StatusCodes.OK,
+      response: {
+        token,
+      },
+    };
+  } catch (e) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: { message: 'User already exists' },
+    };
+  }
+};
+
 export default {
-  getById, deposit, withdrawal, checkUser, login,
+  getById, deposit, withdrawal, checkUser, login, register,
 };

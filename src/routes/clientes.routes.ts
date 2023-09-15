@@ -85,20 +85,20 @@ usersRouter.get('/conta/ativos/:id', UsersController.getStocksByClient);
 
 /**
  * @swagger
- *  /conta/token:
+ *  /conta/login:
  *    post:
  *      tags: [Conta]
  *      description: Endpoint que retorna um token de autenticação
  *      requestBody:
- *        required: false
+ *        required: true
  *        content:
  *          application/json:
  *            schema:
  *              type: object
  *              properties:
- *                CodCliente:
- *                  type: number
- *                Name:
+ *                email:
+ *                  type: string
+ *                password:
  *                  type: string
  *      responses:
  *        200:
@@ -113,6 +113,39 @@ usersRouter.get('/conta/ativos/:id', UsersController.getStocksByClient);
  *                    type: string
  */
 usersRouter.post('/conta/login', UsersController.login);
+
+/**
+ * @swagger
+ *  /conta/register:
+ *    post:
+ *      tags: [Conta]
+ *      description: Endpoint que retorna um token de autenticação
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *                name:
+ *                  type: string
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                require:
+ *                  - token
+ *                properties:
+ *                  token:
+ *                    type: string
+ */
+usersRouter.post('/conta/register', UsersController.register);
 
 /**
  * @swagger
