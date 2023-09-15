@@ -20,6 +20,11 @@ Users.init({
     primaryKey: true,
     autoIncrement: true,
   },
+  email: {
+    type: STRING(50),
+    allowNull: false,
+    unique: true,
+  },
   name: {
     type: STRING(30),
     allowNull: false,
