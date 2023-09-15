@@ -21,6 +21,7 @@ const usersRouter = Router();
  *          - balance
  *          - name
  *          - password
+ *          - email
  *        properties:
  *          CodCliente:
  *            type: number
@@ -29,6 +30,8 @@ const usersRouter = Router();
  *          name:
  *            type: string
  *          password:
+ *            type: string
+ *          email:
  *            type: string
  *        example:
  *          CodCliente: 1

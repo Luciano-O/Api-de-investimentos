@@ -31,7 +31,7 @@ const getById = async (id: number): Promise<IResponse> => {
       attributes: ['id', 'name', 'price'],
       through: { attributes: ['quantity'] },
     },
-    attributes: ['id', 'name', 'balance'],
+    attributes: ['id', 'name', 'balance', 'email'],
   });
 
   if (!user) {
