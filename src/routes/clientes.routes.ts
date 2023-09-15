@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import UsersController from '../controllers/Users.controller';
-import generateToken from '../middlewares/generateToken.middleware';
 import validateToken from '../middlewares/validateToken.middleware';
 
 const usersRouter = Router();
@@ -110,7 +109,7 @@ usersRouter.get('/conta/ativos/:id', UsersController.getStocksByClient);
  *                  token:
  *                    type: string
  */
-usersRouter.post('/conta/token', generateToken);
+usersRouter.post('/conta/login', UsersController.login);
 
 /**
  * @swagger

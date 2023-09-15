@@ -5,11 +5,13 @@ import Users from '../database/models/UsersModel';
 import IResponse from '../interfaces/Response.interface';
 import IUser from '../interfaces/User.interfaces';
 import HttpException from '../shared/http.exception';
+import generateToken from '../shared/generateToken';
 
 const formatFullUser = (user: IUser): IUser => {
   const result = {
     id: user.id,
     name: user.name,
+    email: user.email,
     balance: Number(user.balance.toFixed(2)),
     stocks: user.stocks?.map((stock) => ({
       id: stock.id,
@@ -52,7 +54,7 @@ const checkUser = async (userId: number, money: number, use: string): Promise<IR
       attributes: ['id', 'name', 'price'],
       through: { attributes: ['quantity'] },
     },
-    attributes: ['id', 'name', 'balance'],
+    attributes: ['id', 'email', 'name', 'balance'],
   });
 
   if (!user) {
@@ -62,7 +64,7 @@ const checkUser = async (userId: number, money: number, use: string): Promise<IR
     };
   }
 
-  if (money < 1) {
+  if (money <= 0) {
     return {
       status: StatusCodes.BAD_REQUEST,
       response: { message: `Quantidade do ${use} não pode ser negativa ou igual a 0` },
@@ -113,6 +115,41 @@ const withdrawal = async (userId: number, money: number, t?: Transaction): Promi
   };
 };
 
+const login = async (email: string, password: string): Promise<IResponse> => {
+  const user = await Users.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: {
+        message: 'Wrong email or password',
+      },
+    };
+  }
+
+  if (password !== user.password) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      response: {
+        message: 'Wrong email or password',
+      },
+    };
+  }
+
+  const token = generateToken(user.id, user.name, user.email);
+
+  return {
+    status: StatusCodes.OK,
+    response: {
+      token,
+    },
+  };
+};
+
 export default {
-  getById, deposit, withdrawal, checkUser,
+  getById, deposit, withdrawal, checkUser, login,
 };

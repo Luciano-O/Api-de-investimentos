@@ -8,6 +8,8 @@ class Users extends Model {
 
   name!: string;
 
+  email!: string;
+
   balance!: number;
 
   password!: string;

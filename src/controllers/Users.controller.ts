@@ -34,6 +34,14 @@ const getStocksByClient = async (req: Request, res: Response): Promise<Response>
   return res.status(status).json(response);
 };
 
+const login = async (req: Request, res: Response): Promise<Response> => {
+  const { email, password } = req.body;
+
+  const { status, response } = await UsersServices.login(email, password);
+
+  return res.status(status).json(response);
+};
+
 export default {
-  getById, deposit, withdrawal, getStocksByClient,
+  getById, deposit, withdrawal, getStocksByClient, login,
 };
