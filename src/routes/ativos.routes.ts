@@ -56,4 +56,21 @@ const stocksRouter = Router();
 
 stocksRouter.get('/ativos/:id', InvestmentsControllers.requestById);
 
+/**
+ * @swagger
+ *  /ativos:
+ *    get:
+ *      tags: [Ativo]
+ *      description: Endpoint que retorna todas as ações
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                $ref: '#/components/schemas/Ativo'
+ */
+
+stocksRouter.get('/ativos', InvestmentsControllers.getAllStocks);
+
 export default stocksRouter;

@@ -23,6 +23,15 @@ const getById = async (stockId: number): Promise<IStock> => {
   return result;
 };
 
+const getAllStocks = async (): Promise<IResponse> => {
+  const response = await Stocks.findAll();
+
+  return {
+    status: StatusCodes.OK,
+    response,
+  };
+};
+
 const requestById = async (stockId: number): Promise<IResponse> => {
   const stock = await getById(stockId);
 
@@ -110,5 +119,5 @@ const update = async (newBuy: INewBuy): Promise<IResponse> => {
 };
 
 export default {
-  create, update, requestById, validateCreate, validateUpdate, getById,
+  create, update, requestById, validateCreate, validateUpdate, getById, getAllStocks,
 };

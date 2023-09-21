@@ -26,4 +26,12 @@ const requestById = async (req: Request, res: Response): Promise<Response> => {
   return res.status(status).json(response);
 };
 
-export default { create, update, requestById };
+const getAllStocks = async (req: Request, res: Response): Promise<Response> => {
+  const { status, response } = await InvestmentsServices.getAllStocks();
+
+  return res.status(status).json(response);
+};
+
+export default {
+  create, update, requestById, getAllStocks,
+};
