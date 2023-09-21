@@ -8,6 +8,7 @@ const secret = process.env.JWT_SECRET || 'pselXp';
 
 const validateToken = (req: IRequest, res: Response, next: NextFunction): Response | void => {
   const token = req.headers.authorization;
+  const { id } = req.params;
 
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Token not found' });
@@ -18,6 +19,7 @@ const validateToken = (req: IRequest, res: Response, next: NextFunction): Respon
   try {
     const decoded = jwt.verify(auth, secret) as jwt.JwtPayload;
     req.user = decoded.data.id;
+    if (id && id !== decoded.data.id) return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid User' });
   } catch (e) {
     throw new HttpException(401, 'Invalid token');
   } return next();

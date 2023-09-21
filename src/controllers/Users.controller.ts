@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import BuyedStocksServices from '../services/BuyedStocks.services';
 import UsersServices from '../services/Users.services';
+import IRequest from '../interfaces/request.interface';
 
-const getById = async (req: Request, res: Response): Promise<Response> => {
-  const { id } = req.params;
+const getById = async (req: IRequest, res: Response): Promise<Response> => {
+  const id = req.user || 1;
 
-  const { status, response } = await UsersServices.getById(parseInt(id, 10));
+  const { status, response } = await UsersServices.getById(id);
 
   return res.status(status).json(response);
 };

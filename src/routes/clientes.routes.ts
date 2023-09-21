@@ -149,16 +149,13 @@ usersRouter.post('/conta/register', UsersController.register);
 
 /**
  * @swagger
- *  /conta/{id}:
+ *  /conta:
  *    get:
  *      tags: [Conta]
  *      description: Endpoint que retorna todas as informações do cliente e seus ativos,
  *        referente ao ultimo requisito proposto no desafio
- *      parameters:
- *        - in: path
- *          name: id
- *          type: string
- *          required: true
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          content:
@@ -189,7 +186,7 @@ usersRouter.post('/conta/register', UsersController.register);
  *                            quantity:
  *                              type: number
  */
-usersRouter.get('/conta/:id', UsersController.getById);
+usersRouter.get('/conta', validateToken, UsersController.getById);
 
 /**
  * @swagger
